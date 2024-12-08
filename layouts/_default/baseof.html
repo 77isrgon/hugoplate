@@ -7,6 +7,7 @@
   lang="{{ site.LanguageCode | default `en-US` }}"
   itemtype="http://schema.org/WebPage">
   <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/keycloak-js/11.0.3/keycloak.min.js"></script>
     <!-- head (don't cache it) -->
     {{ partial "essentials/head.html" . }}
 
@@ -49,16 +50,10 @@
 
     <!-- script (always cache it) -->
     {{ partialCached "essentials/script.html" . }}
-    <!DOCTYPE html>
-    <html lang="en">
-      <head>
-        <!-- Other head elements -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/keycloak-js/11.0.3/keycloak.min.js"></script>
-      </head>
-      <body>
-        {{ block "main" . }}{{ end }}
+    
+    {{ block "main" . }}{{ end }}
         
-        <script>
+       <script>
           var keycloak = new Keycloak({
             url: 'http://localhost:8080/auth', // Update with your Keycloak URL
             realm: 'hugoplate', // Update with your realm name
@@ -87,8 +82,6 @@
             }
           }
         </script>
-      </body>
-    </html>
     
   </body>
 </html>
